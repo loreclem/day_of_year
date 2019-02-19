@@ -48,12 +48,12 @@ class DayOfYear {
        //Create and set up the window. 
        JFrame frame = new JFrame("Day " + doy.getJulianDay());
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	   frame.setPreferredSize(new Dimension(240, 145));
+	   frame.setPreferredSize(new Dimension(240, 165));
  
 	   SimpleDateFormat dateFormatGmt = new SimpleDateFormat("HH:mm:ss");
 	   dateFormatGmt.setTimeZone(tz);
-       String textDateA = String.format("%04d/%02d/%02d  day = %03d", now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DATE), doy.getJulianDay());
-	   String textDateB = String.format("%s UTC", dateFormatGmt.format(now.getTime()));
+       String textDateA = String.format("%04d/%02d/%02d | week %d", now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DATE), now.get(Calendar.WEEK_OF_YEAR));
+	   String textDateB = String.format("%s UTC | day %03d", dateFormatGmt.format(now.getTime()), now.get(Calendar.DAY_OF_YEAR));
 
 	   textLabelA = new JLabel(textDateA, SwingConstants.LEFT);
 	   textLabelA.setFont (textLabelA.getFont().deriveFont(16.0f));
@@ -64,7 +64,7 @@ class DayOfYear {
 	   textLabelB.setHorizontalAlignment(SwingConstants.LEFT);
 	   textLabelB.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 	   
-	   String todayJulian = String.format("%04d%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR));
+	   String todayJulian = String.format("%04d%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
 	   editTextArea = new JTextField(todayJulian);
 	   editTextArea.setFont (editTextArea.getFont().deriveFont(16.0f));
        convLabel = new JLabel("conv", SwingConstants.LEFT);
@@ -119,7 +119,7 @@ class DayOfYear {
       Calendar gc = Calendar.getInstance(tz);
 	  gc.set(Calendar.YEAR, Integer.parseInt(injulian.substring(0,4)));
       gc.set(Calendar.DAY_OF_YEAR, Integer.parseInt(injulian.substring(4,7)));
-      String textDate = String.format("%04d/%02d/%02d", gc.get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc.get(Calendar.DATE));
+      String textDate = String.format("%04d/%02d/%02d", gc.get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc.get(Calendar.DATE), gc.get(Calendar.DAY_OF_YEAR));
 	  System.out.println(textDate);
       return textDate;
     }
@@ -144,8 +144,8 @@ class DayOfYear {
 	SimpleDateFormat dateFormatGmt = new SimpleDateFormat("HH:mm:ss");
 	dateFormatGmt.setTimeZone(tz);
 
-	String textDateA = String.format("%04d/%02d/%02d  day = %03d", now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DATE), doy.getJulianDay());
-	   String textDateB = String.format("%s UTC", dateFormatGmt.format(now.getTime()));
+	String textDateA = String.format("%04d/%02d/%02d | week %d", now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DATE), now.get(Calendar.WEEK_OF_YEAR));
+	String textDateB = String.format("%s UTC | day %03d", dateFormatGmt.format(now.getTime()), now.get(Calendar.DAY_OF_YEAR));
 	textLabelA.setText(textDateA);
 	textLabelB.setText(textDateB);
 	
@@ -165,8 +165,8 @@ class DayOfYear {
        createWindow();
 	   while(true) {
 	   try {
-        TimeUnit.SECONDS.sleep(1);
 		updatemylabel();
+        TimeUnit.SECONDS.sleep(1);
        } catch (InterruptedException e) {
         System.err.println(e);
        }
