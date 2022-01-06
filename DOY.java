@@ -46,8 +46,8 @@ class DayOfYear {
 	Calendar now = Calendar.getInstance(tz);
     
     //Create and set up the window.
-	String todayJulian = String.format("%04d%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
-	String todayJulianTitle = String.format("Year %04d, day %03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
+	String todayJulian = String.format("%04d/%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
+	String todayJulianTitle = String.format("%04d/%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
 
     frame = new JFrame(todayJulianTitle);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +134,7 @@ class DayOfYear {
 	gc.set(Calendar.YEAR, Integer.parseInt(ingreg.substring(0,4)));
 	gc.set(Calendar.MONTH, Integer.parseInt(ingreg.substring(5,7)) - 1);
 	gc.set(Calendar.DATE, Integer.parseInt(ingreg.substring(8,10)));
-	String textDate = String.format("%04d%03d", gc.get(Calendar.YEAR), gc.get(Calendar.DAY_OF_YEAR));
+	String textDate = String.format("%04d/%03d", gc.get(Calendar.YEAR), gc.get(Calendar.DAY_OF_YEAR));
 	System.out.println(textDate);
 	return textDate;
 	}
@@ -152,13 +152,13 @@ class DayOfYear {
 	String textDateB = String.format("%s UTC | day %03d", dateFormatGmt.format(now.getTime()), now.get(Calendar.DAY_OF_YEAR));
 	textLabelA.setText(textDateA);
 	textLabelB.setText(textDateB);
-	String todayJulianTitle = String.format("Year %04d, day %03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
+	String todayJulianTitle = String.format("%04d/%03d", now.get(Calendar.YEAR), now.get(Calendar.DAY_OF_YEAR), doy.getJulianDay());
 	frame.setTitle(todayJulianTitle); 
 	
 	
 	System.out.println(editTextArea.getText());
 	try {
-	  String convDate = fromJulian(editTextArea.getText().trim());
+	  String convDate = fromJulian(editTextArea.getText().trim().replace("/", ""));
 	  convLabel.setText(convDate);
 	  String convDate1 = fromGregorian(editTextArea1.getText().trim());
 	  convLabel1.setText(convDate1);
